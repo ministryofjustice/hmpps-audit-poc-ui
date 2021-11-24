@@ -5,7 +5,8 @@ generic-service:
   replicaCount: 2
 
   ingress:
-    host: hmpps-audit-poc-ui-preprod.hmpps.service.justice.gov.ukn    contextColour: green
+    host: hmpps-audit-poc-ui-preprod.hmpps.service.justice.gov.uk
+    contextColour: green
 
   env:
     INGRESS_URL: "https://hmpps-audit-poc-ui-preprod.hmpps.service.justice.gov.uk"
