@@ -45,4 +45,8 @@ export default function nunjucksSetup(app: express.Express, path: pathModule.Pla
     const array = fullName.split(' ')
     return `${array[0][0]}. ${array.reverse()[0]}`
   })
+
+  njkEnv.addFilter('exists', (array: [string], value: string) => {
+    return array?.includes(value)
+  })
 }

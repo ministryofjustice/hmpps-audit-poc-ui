@@ -9,10 +9,12 @@ export interface Services {
 }
 export default function routes(router: Router, services: Services): Router {
   const get = (path: string, handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
+  const post = (path: string, handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
 
   const graphqlDemoController = new GraphQLDemoController(services.graphQLDemoService)
 
   get('/graphql/demo', (req, res) => graphqlDemoController.demo(req, res))
+  post('/graphql/search', (req, res) => graphqlDemoController.search(req, res))
 
   return router
 }

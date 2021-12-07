@@ -6,7 +6,7 @@ import UserService from './services/userService'
 
 const hmppsAuthClient = new HmppsAuthClient(new TokenStore())
 const userService = new UserService(hmppsAuthClient)
-const graphQLDemoService = new GraphQLDemoService()
+const graphQLDemoService = new GraphQLDemoService(hmppsAuthClient)
 
 const app = createApp(userService, graphQLDemoService)
 

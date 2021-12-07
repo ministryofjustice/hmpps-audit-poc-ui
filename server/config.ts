@@ -67,6 +67,14 @@ export default {
       agent: new AgentConfig(),
       enabled: get('TOKEN_VERIFICATION_ENABLED', 'false') === 'true',
     },
+    graphQLEndpoint: {
+      url: get('GRAPHQL_API_URL', 'http://localhost:8080', requiredInProduction) as string,
+      timeout: {
+        response: Number(get('HMPPS_AUTH_TIMEOUT_RESPONSE', 10000)),
+        deadline: Number(get('HMPPS_AUTH_TIMEOUT_DEADLINE', 10000)),
+      },
+      agent: new AgentConfig(),
+    },
   },
   domain: get('INGRESS_URL', 'http://localhost:3000', requiredInProduction),
 }

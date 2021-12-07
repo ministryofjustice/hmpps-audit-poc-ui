@@ -1,0 +1,21 @@
+{% extends "../../partials/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% set pageTitle = applicationName + " - GraphQL Results" %}
+
+{% block content %}
+
+<main class="app-container govuk-body">
+  {{ govukBackLink({
+    text: "Back",
+    href: "/graphql/demo"
+  }) }}
+  <div class="govuk-width-container">
+    <h1 class="govuk-heading-l govuk-!-margin-top-7">GraphQL Demonstration - Results</h1>
+  </div>
+
+  <div>
+    {{data}}
+  </div>
+</main>
+{% endblock %}

@@ -1,14 +1,90 @@
 {% extends "../../partials/layout.njk" %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% set pageTitle = applicationName + " - Home" %}
+{% set pageTitle = applicationName + " - GraphQL Demo" %}
 
 {% block content %}
 
-  <main class="app-container govuk-body">
-    <div class="govuk-width-container">
-      <h1 class="govuk-heading-l govuk-!-margin-top-7">GraphQL Demonstration</h1>
-    </div>
+<main class="app-container govuk-body">
+  <div class="govuk-width-container">
+    <h1 class="govuk-heading-l govuk-!-margin-top-7">GraphQL Demonstration</h1>
+  </div>
 
-  </main>
+  <form action="/graphql/search" method="post">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+    {% call govukFieldset({
+      legend: {
+        text: "View a prisoner's record",
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: true
+      }
+    }) %}
 
+      {{ govukInput({
+        label: {
+          html: 'Prisoner number'
+        },
+        classes: "govuk-input--width-10",
+        id: "prisoner-prisoner",
+        name: "prisonerNumber",
+        value: prisonerNumber,
+        autocomplete: "prisoner-number"
+      }) }}
+
+      {{ govukInput({
+        label: {
+          html: 'Last name'
+        },
+        classes: "govuk-input--width-20",
+        id: "last-name",
+        name: "lastName",
+        value: lastName,
+        autocomplete: "last-name"
+      }) }}
+
+      {{ govukCheckboxes({
+        idPrefix: "data",
+        name: "data",
+        fieldset: {
+          legend: {
+            text: "What information do you need to see?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        hint: {
+          text: "Selecting more than one option will add all the information into the results page"
+        },
+        items: [
+          {
+            value: "basicDetails",
+            text: "Basic details about the person",
+            checked: data | exists('basicDetails')
+          },
+          {
+            value: "sentences",
+            text: "Their sentences",
+            checked: data | exists('sentences')
+          },
+          {
+            value: "offences",
+            text: "The offences for each sentence",
+            checked: data | exists('offences')
+          },
+          {
+            value: "offenderManagers",
+            text: "The current offender managers in the community and prison",
+            checked: data | exists('offenderManagers')
+          }
+        ]
+      })  }}
+      {{ govukButton({
+        text: "Search"
+      }) }}
+    {% endcall %}
+  </form>
+</main>
 {% endblock %}
