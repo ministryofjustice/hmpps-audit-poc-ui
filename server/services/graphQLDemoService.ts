@@ -33,7 +33,7 @@ export default class GraphQLDemoService {
 
   private async searchById(token: string, request: PrisonerSearchForm): Promise<PrisonerData[]> {
     const query = `{
-      offenderById(id: "${request.prisonerNumber}") ${buildQueryDataRequest(request)} 
+    offenderById(id: "${request.prisonerNumber}") ${buildQueryDataRequest(request)} 
     }`
     const response = await this.executeQuery<PrisonerQuery>(token, query)
 
@@ -42,7 +42,7 @@ export default class GraphQLDemoService {
 
   private async searchByLastName(token: string, request: PrisonerSearchForm): Promise<PrisonerData[]> {
     const query = `{
-      offendersByLastName(lastName: "${request.lastName}") ${buildQueryDataRequest(request)}
+    offendersByLastName(lastName: "${request.lastName}") ${buildQueryDataRequest(request)}
     }`
     const response = await this.executeQuery<PrisonerQuery>(token, query)
 
@@ -60,7 +60,7 @@ export default class GraphQLDemoService {
       }),
     })
 
-    logger.info(`GraphQL response: ${JSON.stringify(response)}`)
+    logger.info(`GraphQL response: ${JSON.stringify(response, null, 3)}`)
 
     return response
   }
@@ -69,28 +69,33 @@ export default class GraphQLDemoService {
 function buildQueryDataRequest(request: PrisonerSearchForm): string {
   const offences = request.data?.includes('offences')
     ? `offences {
-    id,
-    description,
-  }`
+          id,
+          description,
+        }
+      `
     : ''
+  // eslint-disable-next-line no-nested-ternary
   const sentence = request.data?.includes('sentences')
     ? `sentences {
-    id, description, length, startDate, ${offences}
-  }`
-    : `sentences {
-      ${offences}
-    }`
+        id, description, length, startDate, ${offences}
+      }
+    `
+    : request.data?.includes('offences')
+    ? `sentences {
+        ${offences}
+      }
+    `
+    : ''
 
   const offenderDetails = request.data?.includes('basicDetails')
-    ? `
-    firstName, 
-    lastName,
-    dateOfBirth,`
+    ? `firstName, 
+      lastName,
+      dateOfBirth,`
     : ''
-  return `
-  {
-    id,
-    ${offenderDetails}
-    ${sentence}
-  }`
+  return `{
+      id,
+      ${offenderDetails}
+      ${sentence}
+    }
+  `
 }

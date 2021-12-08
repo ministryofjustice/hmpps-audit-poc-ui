@@ -14,6 +14,7 @@ export default function routes(router: Router, services: Services): Router {
   const graphqlDemoController = new GraphQLDemoController(services.graphQLDemoService)
 
   get('/graphql/demo', (req, res) => graphqlDemoController.demo(req, res))
+  get('/graphql/details', (req, res) => graphqlDemoController.details(req, res))
   post('/graphql/search', (req, res) => graphqlDemoController.search(req, res))
 
   return router
