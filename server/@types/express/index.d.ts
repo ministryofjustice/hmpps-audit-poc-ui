@@ -4,7 +4,7 @@ export type RequestData = 'basicDetails' | 'sentences' | 'offences' | 'offenderm
 export interface PrisonerSearchForm {
   lastName?: string
   prisonerNumber?: string
-  data: Array<RequestData>
+  data?: Array<RequestData>
 }
 declare module 'express-session' {
   // Declare that the session will potentially contain these additional fields
