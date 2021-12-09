@@ -19,7 +19,7 @@ interface PostRequest {
   path?: string
   headers?: Record<string, string>
   responseType?: string
-  data?: Record<string, unknown>
+  data?: Record<string, unknown> | string
   raw?: boolean
 }
 
@@ -68,14 +68,14 @@ export default class RestClient {
     }
   }
 
-  async post({
+  async post<T>({
     path = null,
     headers = {},
     responseType = '',
     data = {},
     raw = false,
-  }: PostRequest = {}): Promise<unknown> {
-    logger.info(`Post using user credentials: calling ${this.name}: ${path}`)
+  }: PostRequest = {}): Promise<T> {
+    logger.info(`Post using user credentials: calling ${this.name}: ${this.apiUrl()}${path}`)
     try {
       const result = await superagent
         .post(`${this.apiUrl()}${path}`)

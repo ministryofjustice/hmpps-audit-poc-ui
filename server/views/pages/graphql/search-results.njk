@@ -1,0 +1,42 @@
+{% extends "../../partials/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% set pageTitle = applicationName + " - GraphQL Results" %}
+
+{% block content %}
+
+<main class="app-container govuk-body">
+  {{ govukBackLink({
+    text: "Back",
+    href: "/graphql/demo"
+  }) }}
+  <div class="govuk-width-container">
+    <h1 class="govuk-heading-l govuk-!-margin-top-7">GraphQL Demonstration - Prisoners</h1>
+  </div>
+    <table class="govuk-table incidents govuk-!-margin-bottom-3">
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th class="govuk-table__header govuk-!-width-one-fifth" scope="col">ID</th>
+        <th class="govuk-table__header govuk-!-width-one-fifth" scope="col">Name</th>
+        <th class="govuk-table__header govuk-!-width-one-fifth" scope="col">Date of birth</th>
+        <th class="govuk-table__header govuk-!-width-one-fifth" scope="col"></th>
+      </tr>
+      </thead>
+
+      <tbody class="govuk-table__body">
+      {% for prisoner in prisoners %}
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">{{ prisoner.id }}</td>
+          <td class="govuk-table__cell"><a href="/graphql/details?id={{ prisoner.id }}"
+                                            class="govuk-link govuk-link--no-visited-state">{{ prisoner.lastName  }}, {{ prisoner.firstName  }}</a>
+          </td>
+          <td class="govuk-table__cell">{{ prisoner.dateOfBirth }}</td>
+          <td class="govuk-table__cell"><a href="/graphql/details?id={{ prisoner.id }}"
+                                            class="govuk-link govuk-link--no-visited-state">View</a></td>
+        </tr>
+      {% endfor %}
+
+      </tbody>
+    </table>
+</main>
+{% endblock %}
