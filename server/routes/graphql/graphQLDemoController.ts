@@ -24,9 +24,9 @@ export default class GraphqlDemoController {
     const prisoners = await this.graphQLDemoService.search({}, req.session.prisonerSearchForm)
 
     if (prisoners.length > 1) {
-      res.render('pages/graphql/search-results', { data: JSON.stringify(prisoners), prisoners })
+      res.render('pages/graphql/search-results', { prisoners })
     } else if (prisoners.length === 1) {
-      res.render('pages/graphql/prisoner-details', { data: JSON.stringify(prisoners), prisoner: prisoners[0] })
+      res.render('pages/graphql/prisoner-details', { prisoner: prisoners[0] })
     } else {
       req.flash('errors', [{ text: 'No prisoners found' }])
       res.redirect('/graphql/demo')

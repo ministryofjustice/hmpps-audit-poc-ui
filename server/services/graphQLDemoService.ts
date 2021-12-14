@@ -67,6 +67,16 @@ export default class GraphQLDemoService {
 }
 
 function buildQueryDataRequest(request: PrisonerSearchForm): string {
+  const offenderManagers = request.data?.includes('offenderManagers')
+    ? `offenderManagers {
+        firstName,
+        lastName,
+        responsibleOfficer,
+        type
+      }
+      `
+    : ''
+
   const offences = request.data?.includes('offences')
     ? `offences {
           id,
@@ -94,6 +104,7 @@ function buildQueryDataRequest(request: PrisonerSearchForm): string {
     : ''
   return `{
       id,
+      ${offenderManagers}
       ${offenderDetails}
       ${sentence}
     }

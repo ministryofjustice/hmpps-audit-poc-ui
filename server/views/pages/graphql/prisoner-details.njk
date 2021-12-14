@@ -31,6 +31,43 @@
   {% endif %}
 {% endmacro %}
 
+{%  macro offenderManagers(offenderManagers) %}
+  {% if offenderManagers.length > 0 %}
+      {% set offenderManagerItems = [] %}
+
+      {% for offenderManager in offenderManagers %}
+        {% set offenderManagerItems = (offenderManagerItems.push(
+            [
+              {
+                text: offenderManager.lastName + ", " + offenderManager.firstName
+              },
+              {
+                text: "Prison Offender Manager" if offenderManager.type == "PRISON" else "Community Offender Manager" 
+              },
+              {
+                text: "Yes" if offenderManager.responsibleOfficer else "No"
+              }            
+            ]
+          ), offenderManagerItems) %}
+      {% endfor %}
+    {{ govukTable({
+      captionClasses: "govuk-table__caption--m",
+      head: [
+      {
+        text: "Name"
+      },
+      {
+        text: "Type"
+      },
+      {
+        text: "RO"
+      }
+    ],
+      rows: offenderManagerItems
+    }) }}
+  {% endif %}
+{% endmacro %}
+
 {% block content %}
 
 <main class="app-container govuk-body">
@@ -48,7 +85,7 @@
             text: "First name"
           },
           value: {
-            text: prisoner.lastName
+            text: prisoner.firstName
           },
           actions: {
             items: [
@@ -96,6 +133,12 @@
         }
       ]
     }) }}
+
+    {{
+      offenderManagers(prisoner.offenderManagers)
+    }}
+
+
     {% if prisoner.sentences.length %}
       <h2 class="govuk-heading-m govuk-!-margin-top-7">Sentences</h2>
         {% set sentenceItems = [] %}
