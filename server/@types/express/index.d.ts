@@ -1,6 +1,6 @@
 export default {}
 
-export type RequestData = 'basicDetails' | 'sentences' | 'offences' | 'offendermanagers'
+export type RequestData = 'basicDetails' | 'sentences' | 'offences' | 'offenderManagers'
 export interface PrisonerSearchForm {
   lastName?: string
   prisonerNumber?: string
