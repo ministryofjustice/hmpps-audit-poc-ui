@@ -32,9 +32,51 @@ export default class GraphQLDemoService {
   }
 
   private async searchById(token: string, request: PrisonerSearchForm): Promise<PrisonerData[]> {
+    // for clarity show making a query for a single prisoner using parameters
+    if (requiresAllData(request)) {
+      const { prisonerNumber } = request
+      const query = `query($prisonerNumber: String!) {
+        offenderById(id: $prisonerNumber)  {
+          id
+          firstName
+          lastName
+          dateOfBirth
+          offenderManagers {
+            firstName
+            lastName
+            responsibleOfficer
+            type
+          }
+          sentences {
+            id
+            description
+            length
+            startDate
+            offences {
+              id
+              description
+            }
+          }
+        }
+      }`
+
+      const response = await GraphQLDemoService.restClient(token).post<PrisonerQuery>({
+        path: `/graphql`,
+        headers: { 'Content-Type': 'application/json' },
+        data: JSON.stringify({
+          query,
+          variables: {
+            prisonerNumber,
+          },
+        }),
+      })
+
+      logger.info(`GraphQL response for single offender: ${JSON.stringify(response, null, 3)}`)
+      return [response.data.offenderById]
+    }
     const query = `{
-    offenderById(id: "${request.prisonerNumber}") ${buildQueryDataRequest(request)} 
-    }`
+        offenderById(id: "${request.prisonerNumber}") ${buildQueryDataRequest(request)} 
+        }`
     const response = await this.executeQuery<PrisonerQuery>(token, query)
 
     return [response.data.offenderById]
@@ -109,4 +151,8 @@ function buildQueryDataRequest(request: PrisonerSearchForm): string {
       ${sentence}
     }
   `
+}
+
+function requiresAllData(request: PrisonerSearchForm): boolean {
+  return request.data.length === 4
 }
