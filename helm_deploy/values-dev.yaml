@@ -6,7 +6,6 @@ generic-service:
 
   ingress:
     host: hmpps-audit-poc-ui-dev.hmpps.service.justice.gov.uk
-    contextColour: green
 
   env:
     INGRESS_URL: "https://hmpps-audit-poc-ui-dev.hmpps.service.justice.gov.uk"
