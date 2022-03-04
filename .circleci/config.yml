@@ -1,7 +1,16 @@
 version: 2.1
 
 orbs:
-  hmpps: ministryofjustice/hmpps@3.14
+  hmpps: ministryofjustice/hmpps@3.11
+  slack: circleci/slack@4.8.3
+
+parameters:
+  alerts-slack-channel:
+    type: string
+    default: hmpps_tech_alerts_security
+  releases-slack-channel:
+    type: string
+    default: dps-releases
 
   node-version:
     type: string
@@ -65,7 +74,7 @@ jobs:
           command: 'npm outdated typescript govuk-frontend'
       - slack/notify:
           event: fail
-          channel: hmpps_tech_alerts_security
+          channel: << pipeline.parameters.alerts-slack-channel >>
           template: basic_fail_1
 
   unit_test:
@@ -201,15 +210,15 @@ workflows:
           context:
             - hmpps-common-vars
       - hmpps/npm_security_audit:
-          slack_channel: hmpps_tech_alerts_security
+          slack_channel: << pipeline.parameters.alerts-slack-channel >>
           context:
             - hmpps-common-vars
       - hmpps/trivy_latest_scan:
-          slack_channel: hmpps_tech_alerts_security
+          slack_channel: << pipeline.parameters.alerts-slack-channel >>
           context:
             - hmpps-common-vars
       - hmpps/veracode_pipeline_scan:
-          slack_channel: hmpps_tech_alerts_security
+          slack_channel: << pipeline.parameters.alerts-slack-channel >>
           context:
             - veracode-credentials
             - hmpps-common-vars
