@@ -3,14 +3,6 @@ version: 2.1
 orbs:
   hmpps: ministryofjustice/hmpps@3.14
 
-parameters:
-  alerts-slack-channel:
-    type: string
-    default: hmpps_tech_alerts_security
-  releases-slack-channel:
-    type: string
-    default: dps-releases
-
   node-version:
     type: string
     default: 16.14-browsers
@@ -73,7 +65,7 @@ jobs:
           command: 'npm outdated typescript govuk-frontend'
       - slack/notify:
           event: fail
-          channel: << pipeline.parameters.alerts-slack-channel >>
+          channel: hmpps_tech_alerts_security
           template: basic_fail_1
 
   unit_test:
@@ -190,7 +182,6 @@ workflows:
           jira_update: true
           jira_env_type: production
           slack_notification: true
-          slack_channel_name: << pipeline.parameters.releases-slack-channel >>
           context:
             - hmpps-common-vars
             - hmpps-audit-poc-ui-prod
@@ -210,15 +201,15 @@ workflows:
           context:
             - hmpps-common-vars
       - hmpps/npm_security_audit:
-          slack_channel: << pipeline.parameters.alerts-slack-channel >>
+          slack_channel: hmpps_tech_alerts_security
           context:
             - hmpps-common-vars
       - hmpps/trivy_latest_scan:
-          slack_channel: << pipeline.parameters.alerts-slack-channel >>
+          slack_channel: hmpps_tech_alerts_security
           context:
             - hmpps-common-vars
       - hmpps/veracode_pipeline_scan:
-          slack_channel: << pipeline.parameters.alerts-slack-channel >>
+          slack_channel: hmpps_tech_alerts_security
           context:
             - veracode-credentials
             - hmpps-common-vars
