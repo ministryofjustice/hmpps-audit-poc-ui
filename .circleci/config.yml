@@ -1,8 +1,8 @@
 version: 2.1
 
 orbs:
-  hmpps: ministryofjustice/hmpps@3.11
-  slack: circleci/slack@4.4.2
+  hmpps: ministryofjustice/hmpps@3.14
+  slack: circleci/slack@4.8.3
 
 parameters:
   alerts-slack-channel:
@@ -14,7 +14,7 @@ parameters:
 
   node-version:
     type: string
-    default: 14.17-browsers
+    default: 16.14-browsers
 
 jobs:
   build:
@@ -156,6 +156,7 @@ workflows:
       - hmpps/deploy_env:
           name: deploy_dev
           env: "dev"
+          jira_update: true
           context: hmpps-common-vars
           filters:
             branches:
@@ -173,6 +174,8 @@ workflows:
       - hmpps/deploy_env:
           name: deploy_preprod
           env: "preprod"
+          jira_update: true
+          jira_env_type: staging
           context:
             - hmpps-common-vars
             - hmpps-audit-poc-ui-preprod
@@ -185,8 +188,9 @@ workflows:
       - hmpps/deploy_env:
           name: deploy_prod
           env: "prod"
+          jira_update: true
+          jira_env_type: production
           slack_notification: true
-          slack_channel_name: << pipeline.parameters.releases-slack-channel >>
           context:
             - hmpps-common-vars
             - hmpps-audit-poc-ui-prod
