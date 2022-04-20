@@ -63,12 +63,12 @@ export default class GraphQLDemoService {
       const response = await GraphQLDemoService.restClient(token).post<PrisonerQuery>({
         path: `/graphql`,
         headers: { 'Content-Type': 'application/json' },
-        data: JSON.stringify({
+        data: {
           query,
           variables: {
             prisonerNumber,
           },
-        }),
+        },
       })
 
       logger.info(`GraphQL response for single offender: ${JSON.stringify(response, null, 3)}`)
@@ -94,17 +94,15 @@ export default class GraphQLDemoService {
   private async executeQuery<T>(token: string, query: string): Promise<T> {
     logger.info(`GraphQL query: ${query}`)
 
-    const response = await GraphQLDemoService.restClient(token).post<T>({
+    const response = await GraphQLDemoService.restClient(token).post({
       path: `/graphql`,
       headers: { 'Content-Type': 'application/json' },
-      data: JSON.stringify({
-        query,
-      }),
+      data: { query },
     })
 
     logger.info(`GraphQL response: ${JSON.stringify(response, null, 3)}`)
 
-    return response
+    return response as T
   }
 }
 
