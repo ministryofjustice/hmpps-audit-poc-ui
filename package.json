@@ -37,7 +37,7 @@
       "server/**/*.{ts,js,jsx,mjs}"
     ],
     "testMatch": [
-      "<rootDir>/(server|job)/**/?(*.)(spec|test).{ts,js,jsx,mjs}"
+      "<rootDir>/(server|job)/**/?(*.)(cy|test).{ts,js,jsx,mjs}"
     ],
     "testEnvironment": "node",
     "reporters": [
@@ -96,12 +96,12 @@
     "cookie-session": "^2.0.0",
     "csurf": "^1.11.0",
     "dotenv": "^16.0.3",
-    "eslint-plugin-no-only-tests": "^2.6.0",
+    "eslint-plugin-no-only-tests": "^3.1.0",
     "express": "^4.18.2",
     "express-request-id": "^1.4.1",
     "express-session": "^1.17.3",
     "govuk-frontend": "^4.4.0",
-    "helmet": "^5.1.1",
+    "helmet": "^6.0.1",
     "http-errors": "^2.0.0",
     "jquery": "^3.6.1",
     "jwt-decode": "^3.1.2",
@@ -111,7 +111,7 @@
     "passport-oauth2": "^1.6.1",
     "prom-client": "^14.0.1",
     "redis": "^4.5.1",
-    "superagent": "^8.0.4",
+    "superagent": "^8.0.5",
     "url-value-parser": "^2.2.0"
   },
   "devDependencies": {
@@ -124,7 +124,7 @@
     "@types/csurf": "^1.11.2",
     "@types/express-request-id": "^1.4.3",
     "@types/express-session": "^1.17.5",
-    "@types/http-errors": "^1.8.2",
+    "@types/http-errors": "^2.0.1",
     "@types/jest": "^29.2.3",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^18.11.10",
@@ -137,7 +137,7 @@
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "concurrently": "^7.6.0",
-    "cypress": "^9.7.0",
+    "cypress": "^11.2.0",
     "cypress-multi-reporters": "^1.5.0",
     "eslint": "^8.20.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -157,7 +157,7 @@
     "nodemon": "^2.0.19",
     "prettier": "^2.8.0",
     "sass": "^1.56.1",
-    "supertest": "^6.3.1",
+    "supertest": "^6.3.2",
     "ts-jest": "^29.0.3",
     "typescript": "^4.9.3"
   }
