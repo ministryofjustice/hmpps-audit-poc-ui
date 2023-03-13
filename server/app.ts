@@ -20,7 +20,7 @@ import GraphQLDemoService from './services/graphQLDemoService'
 
 export default function createApp(
   userService: UserService,
-  graphQLDemoService: GraphQLDemoService
+  graphQLDemoService: GraphQLDemoService,
 ): express.Application {
   const app = express()
 
