@@ -1,17 +1,10 @@
 export default {}
 
-export type RequestData = 'basicDetails' | 'sentences' | 'offences' | 'offenderManagers'
-export interface PrisonerSearchForm {
-  lastName?: string
-  prisonerNumber?: string
-  data?: Array<RequestData>
-}
 declare module 'express-session' {
   // Declare that the session will potentially contain these additional fields
   interface SessionData {
     returnTo: string
     nowInMinutes: number
-    prisonerSearchForm: PrisonerSearchForm
   }
 }
 
@@ -26,8 +19,7 @@ export declare global {
     interface Request {
       verified?: boolean
       id: string
-      flash(type: string, message: Array<Record<string, string>>): number
-      flash(message: 'errors'): Array<Record<string, string>>
+      logout(done: (err: unknown) => void): void
     }
   }
 }

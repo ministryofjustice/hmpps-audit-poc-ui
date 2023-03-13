@@ -1,14 +1,11 @@
+import promClient from 'prom-client'
+import { createMetricsApp } from './monitoring/metricsApp'
 import createApp from './app'
-import HmppsAuthClient from './data/hmppsAuthClient'
-import { createRedisClient } from './data/redisClient'
-import TokenStore from './data/tokenStore'
-import GraphQLDemoService from './services/graphQLDemoService'
-import UserService from './services/userService'
+import { services } from './services'
 
-const hmppsAuthClient = new HmppsAuthClient(new TokenStore(createRedisClient()))
-const userService = new UserService(hmppsAuthClient)
-const graphQLDemoService = new GraphQLDemoService(hmppsAuthClient)
+promClient.collectDefaultMetrics()
 
-const app = createApp(userService, graphQLDemoService)
+const app = createApp(services())
+const metricsApp = createMetricsApp()
 
-export default app
+export { app, metricsApp }

@@ -1,6 +1,6 @@
 import type { Express } from 'express'
 import request from 'supertest'
-import appWithAllRoutes from './testutils/appSetup'
+import { appWithAllRoutes } from './testutils/appSetup'
 
 let app: Express
 
@@ -18,7 +18,7 @@ describe('GET /', () => {
       .get('/')
       .expect('Content-Type', /html/)
       .expect(res => {
-        expect(res.text).toContain('Sample Application')
+        expect(res.text).toContain('This site is under construction...')
       })
   })
 })
