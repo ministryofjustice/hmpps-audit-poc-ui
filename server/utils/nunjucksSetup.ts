@@ -43,4 +43,12 @@ export default function nunjucksSetup(app: express.Express, applicationInfo: App
   )
 
   njkEnv.addFilter('initialiseName', initialiseName)
+  njkEnv.addFilter('prettifyJSON', jsonString => {
+    try {
+      const jsonObj = JSON.parse(jsonString)
+      return JSON.stringify(jsonObj, null, 2)
+    } catch (error) {
+      return jsonString
+    }
+  })
 }

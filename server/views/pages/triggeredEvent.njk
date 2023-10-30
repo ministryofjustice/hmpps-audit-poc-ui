@@ -1,0 +1,35 @@
+{% extends "../partials/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+    <div class="govuk-body">
+        <h1>Congratulations! 🎉</h1>
+        <h3>You've just published an event that has been pushed to a queue. This event will be stored in the audit
+            database.</h3>
+        <div>
+            <h3>Published Message (JSON Format):</h3>
+            <pre>{{ publishedEvent | prettifyJSON }}</pre>
+        </div>
+        <h3>Here's an explanation of what this message means:</h3>
+        <p>
+            <b>What:</b> Which action was performed? This can be any string but should follow the convention of being
+            brief,
+            descriptive and capitalised.<br>
+            <b>When:</b> Timestamp of the event.<br>
+            <b>Who:</b> Which user initiated the event?<br>
+            <b>Subject ID:</b> The subject against which the action was performed. For example, if the action being
+            audited was a change of John's email address, then the subject ID is John's user ID.<br>
+            <b>Subject Type:</b> The type of subject ID we are using. This is most commonly a user ID.<br>
+            <b>Service:</b> Which service performed this action?<br>
+            <b>Details:</b> Any additional details specific to this action that may be relevant can go here. This can be
+            anything but must be in the format of a stringifed JSON.<br>
+        </p>
+        <p>{{ govukButton({
+                text: "Back",
+                href: "/"
+            }) }}</p>
+    </div>
+{% endblock %}
