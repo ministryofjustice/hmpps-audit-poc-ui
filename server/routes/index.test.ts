@@ -27,7 +27,7 @@ describe('index.test.ts', () => {
         .get('/')
         .expect('Content-Type', /html/)
         .expect(res => {
-          expect(res.text).toContain('Click this button to trigger an event')
+          expect(res.text).toContain('Click this button to trigger an audit event')
           expect(res.text).toContain('Trigger Event')
         })
     })
