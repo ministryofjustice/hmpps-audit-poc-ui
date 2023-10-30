@@ -1,7 +1,7 @@
 import type { Express } from 'express'
 import request from 'supertest'
 import { appWithAllRoutes } from './testutils/appSetup'
-import { auditService } from '../services/auditService'
+import auditService from '../services/auditService'
 
 let app: Express
 

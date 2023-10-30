@@ -1,5 +1,5 @@
 import { SQSClient } from '@aws-sdk/client-sqs'
-import { auditService } from './auditService'
+import auditService from './auditService'
 
 const adminId = 'some admin'
 const userId = 'some user'
