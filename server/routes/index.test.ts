@@ -36,7 +36,7 @@ describe('index.test.ts', () => {
   it('GET /triggered-event', () => {
     const mockPublishedEvent = {
       action: 'TEST_EVENT',
-      who: 'some username',
+      who: 'user1',
       subjectId: 'some user ID',
       subjectType: 'USER_ID',
       details: JSON.stringify({ testField: 'some value' }),

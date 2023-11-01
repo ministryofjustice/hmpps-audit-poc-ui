@@ -14,9 +14,10 @@ export default function routes(service: Services): Router {
   })
 
   get('/triggered-event', async (req, res, next) => {
+    const { username } = res.locals.user
     const publishedEvent = await auditService.sendAuditMessage({
       action: 'TEST_EVENT',
-      who: 'some username',
+      who: username,
       subjectId: 'some user ID',
       subjectType: 'USER_ID',
       details: JSON.stringify({ testField: 'some value' }),
