@@ -16,12 +16,14 @@ class AuditService {
     who,
     subjectId,
     subjectType,
+    correlationId,
     details,
   }: {
     action: string
     who: string
     subjectId?: string
     subjectType?: string
+    correlationId?: string
     details?: string
   }) {
     try {
@@ -31,6 +33,7 @@ class AuditService {
         who,
         subjectId,
         subjectType,
+        correlationId,
         service: config.apis.audit.serviceName,
         details,
       })

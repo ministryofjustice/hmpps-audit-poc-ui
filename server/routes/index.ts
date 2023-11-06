@@ -1,5 +1,6 @@
 import { type RequestHandler, Router } from 'express'
 
+import { v1 as uuidv1 } from 'uuid'
 import asyncMiddleware from '../middleware/asyncMiddleware'
 import type { Services } from '../services'
 import auditService from '../services/auditService'
@@ -20,6 +21,7 @@ export default function routes(service: Services): Router {
       who: username,
       subjectId: 'some user ID',
       subjectType: 'USER_ID',
+      correlationId: uuidv1(),
       details: JSON.stringify({ testField: 'some value' }),
     })
     res.render('pages/triggeredEvent', {
