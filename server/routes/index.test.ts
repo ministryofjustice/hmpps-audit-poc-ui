@@ -16,7 +16,13 @@ describe('index.test.ts', () => {
     sendAuditMessage: sendAuditMessageMock,
   }))
 
+  jest.mock('uuid', () => ({
+    v1: jest.fn(() => 'mocked-uuid'),
+  }))
+
   beforeEach(() => {
+    jest.clearAllMocks()
+    jest.resetAllMocks()
     app = appWithAllRoutes({})
     jest.spyOn(auditService, 'sendAuditMessage').mockResolvedValue({} as never)
   })
@@ -34,14 +40,6 @@ describe('index.test.ts', () => {
   })
 
   it('GET /triggered-event', () => {
-    const mockPublishedEvent = {
-      action: 'TEST_EVENT',
-      who: 'user1',
-      subjectId: 'some user ID',
-      subjectType: 'USER_ID',
-      details: JSON.stringify({ testField: 'some value' }),
-    }
-
     return request(app)
       .get('/triggered-event')
       .expect('Content-Type', /html/)
@@ -60,12 +58,22 @@ describe('index.test.ts', () => {
           '<b>Subject Type:</b> The type of subject ID we are using. This is most commonly a user ID.',
         )
         expect(res.text).toContain('<b>Service:</b> Which service performed this action?')
+        expect(res.text).toContain('<b>Correlation ID:</b> An optional ID used to link multiple correlated events.')
         expect(res.text).toContain(
           '<b>Details:</b> Any additional details specific to this action that may be relevant can go here.',
         )
       })
       .expect(() => {
-        expect(auditService.sendAuditMessage).toBeCalledWith(mockPublishedEvent)
+        expect(auditService.sendAuditMessage).toBeCalledWith(
+          expect.objectContaining({
+            action: 'TEST_EVENT',
+            who: 'user1',
+            subjectId: 'some user ID',
+            subjectType: 'USER_ID',
+            correlationId: expect.stringMatching('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'),
+            details: JSON.stringify({ testField: 'some value' }),
+          }),
+        )
       })
   })
 })
