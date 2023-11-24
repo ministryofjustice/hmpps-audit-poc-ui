@@ -32,7 +32,10 @@
     "npm": "^9"
   },
   "jest": {
+    "transformIgnorePatterns": ["<rootDir>/node_modules/(?!@ministryofjustice/hmpps-audit-client)"],
     "transform": {
+      "^.+\\.(ts|tsx)?$": "ts-jest",
+      "^.+\\.(js|jsx)$": "babel-jest",
       "^.+\\.tsx?$": [
         "ts-jest",
         {
@@ -93,6 +96,7 @@
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.433.0",
     "@ministryofjustice/frontend": "^1.8.0",
+    "@ministryofjustice/hmpps-audit-client": "^1.0.1",
     "agentkeepalive": "^4.5.0",
     "applicationinsights": "^2.9.0",
     "body-parser": "^1.20.2",
