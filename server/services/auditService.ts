@@ -3,6 +3,7 @@ import logger from '../../logger'
 import config from '../config'
 
 class AuditService {
+  // Something
   private sqsClient: SQSClient
 
   constructor(private readonly queueUrl = config.apis.audit.queueUrl) {
