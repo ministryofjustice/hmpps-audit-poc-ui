@@ -1,9 +1,9 @@
 import { type RequestHandler, Router } from 'express'
 
 import { v1 as uuidv1 } from 'uuid'
+import { auditService } from '@ministryofjustice/hmpps-audit-client'
 import asyncMiddleware from '../middleware/asyncMiddleware'
 import type { Services } from '../services'
-import auditService from '../services/auditService'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function routes(service: Services): Router {

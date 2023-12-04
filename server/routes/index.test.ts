@@ -1,21 +1,15 @@
 import type { Express } from 'express'
 import request from 'supertest'
+import { auditService } from '@ministryofjustice/hmpps-audit-client'
 import { appWithAllRoutes } from './testutils/appSetup'
-import auditService from '../services/auditService'
 
 let app: Express
-
-const sendAuditMessageMock = jest.fn()
 
 afterEach(() => {
   jest.resetAllMocks()
 })
 
 describe('index.test.ts', () => {
-  jest.mock('../services/auditService', () => ({
-    sendAuditMessage: sendAuditMessageMock,
-  }))
-
   jest.mock('uuid', () => ({
     v1: jest.fn(() => 'mocked-uuid'),
   }))
