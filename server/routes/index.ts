@@ -21,6 +21,7 @@ export default function routes(service: Services): Router {
       who: username,
       subjectId: 'some user ID',
       subjectType: 'USER_ID',
+      service: 'hmpps-audit-poc-ui',
       correlationId: uuidv1(),
       details: JSON.stringify({ testField: 'some value' }),
     })
