@@ -37,7 +37,7 @@ And then, to build the assets and start the app with nodemon:
 
 ### Running integration tests
 
-For local running, start a test db, redis, and wiremock instance by:
+For local running, start a test db and wiremock instance by:
 
 `docker compose -f docker-compose-test.yml up`
 
@@ -48,7 +48,7 @@ Then run the server in test mode by:
 And then either, run tests in headless mode with:
 
 `npm run int-test`
-
+ 
 Or run tests with the cypress UI:
 
 `npm run int-test-ui`
