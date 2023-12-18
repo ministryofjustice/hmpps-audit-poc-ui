@@ -1,20 +1,20 @@
+---
 generic-service:
   nameOverride: hmpps-audit-poc-ui
   serviceAccountName: hmpps-audit-poc-ui
   productId: "DPS018"
 
-  replicaCount: 4
+  replicaCount: 2
 
   image:
     repository: quay.io/hmpps/hmpps-audit-poc-ui
-    tag: app_version # override at deployment time
+    tag: app_version    # override at deployment time
     port: 3000
 
   ingress:
     enabled: true
-    host: app-hostname.local # override per environment
+    host: app-hostname.local    # override per environment
     tlsSecretName: hmpps-audit-poc-ui-cert
-    path: /
 
   livenessProbe:
     httpGet:
