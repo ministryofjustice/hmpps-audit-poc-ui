@@ -125,7 +125,7 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - HAAR-2310
       - hmpps/deploy_env:
           name: deploy_dev
           env: "dev"
@@ -136,7 +136,7 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - HAAR-2310
           requires:
             - helm_lint
             - unit_test

@@ -64,6 +64,7 @@ describe('index.test.ts', () => {
             who: 'user1',
             subjectId: 'some user ID',
             subjectType: 'USER_ID',
+            service: 'hmpps-audit-poc-ui',
             correlationId: expect.stringMatching('^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'),
             details: JSON.stringify({ testField: 'some value' }),
           }),
