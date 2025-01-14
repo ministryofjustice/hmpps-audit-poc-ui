@@ -4,6 +4,11 @@
 generic-service:
   replicaCount: 2
 
+  scheduledDowntime:
+    enabled: true
+    startup: '46 6 * * 1-5' # Start at 6.45am UTC Monday-Friday
+    shutdown: '24 21 * * 1-5' # Stop at 9.24pm UTC Monday-Friday
+
   ingress:
     host: audit-poc-ui-dev.hmpps.service.justice.gov.uk
 
@@ -16,4 +21,5 @@ generic-service:
 
 generic-prometheus-alerts:
   alertSeverity: digital-prison-service-dev
+  businessHoursOnly: true
 
