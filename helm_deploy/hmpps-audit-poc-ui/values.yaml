@@ -7,7 +7,7 @@ generic-service:
   replicaCount: 2
 
   image:
-    repository: quay.io/hmpps/hmpps-audit-poc-ui
+    repository: ghcr.io/ministryofjustice/hmpps-audit-poc-ui
     tag: app_version    # override at deployment time
     port: 3000
 
@@ -36,7 +36,6 @@ generic-service:
     REDIS_ENABLED: "true"
     REDIS_TLS_ENABLED: "true"
     TOKEN_VERIFICATION_ENABLED: "true"
-    APPLICATIONINSIGHTS_CONNECTION_STRING: "InstrumentationKey=$(APPINSIGHTS_INSTRUMENTATIONKEY);IngestionEndpoint=https://northeurope-0.in.applicationinsights.azure.com/;LiveEndpoint=https://northeurope.livediagnostics.monitor.azure.com/"
     AUDIT_SQS_REGION: "eu-west-2"
     AUDIT_SERVICE_NAME: "hmpps-audit-poc-ui"
 
@@ -46,12 +45,15 @@ generic-service:
   #     [name of environment variable as seen by app]: [key of kubernetes secret to load]
 
   namespace_secrets:
-    hmpps-audit-poc-ui:
-      APPINSIGHTS_INSTRUMENTATIONKEY: "APPINSIGHTS_INSTRUMENTATIONKEY"
-      API_CLIENT_ID: "API_CLIENT_ID"
-      API_CLIENT_SECRET: "API_CLIENT_SECRET"
-      SYSTEM_CLIENT_ID: "SYSTEM_CLIENT_ID"
-      SYSTEM_CLIENT_SECRET: "SYSTEM_CLIENT_SECRET"
+    hmpps-audit-poc-ui-application-insights:
+      APPLICATIONINSIGHTS_CONNECTION_STRING: "APPLICATIONINSIGHTS_CONNECTION_STRING"
+    hmpps-audit-poc-ui-auth-code:
+      AUTH_CODE_CLIENT_ID: "AUTH_CODE_CLIENT_ID"
+      AUTH_CODE_CLIENT_SECRET: "AUTH_CODE_CLIENT_SECRET"
+    hmpps-audit-poc-ui-client-creds:
+      CLIENT_CREDS_CLIENT_ID: "CLIENT_CREDS_CLIENT_ID"
+      CLIENT_CREDS_CLIENT_SECRET: "CLIENT_CREDS_CLIENT_SECRET"
+    hmpps-audit-poc-ui-session-secret:
       SESSION_SECRET: "SESSION_SECRET"
     sqs-hmpps-audit-secret:
       AUDIT_SQS_QUEUE_URL: "sqs_queue_url"
