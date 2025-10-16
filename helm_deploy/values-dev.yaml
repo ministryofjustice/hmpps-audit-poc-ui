@@ -20,6 +20,6 @@ generic-service:
     ENVIRONMENT_NAME: DEV
 
 generic-prometheus-alerts:
-  alertSeverity: digital-prison-service-dev
+  alertSeverity: hmpps_tech_non_prod
   businessHoursOnly: true
 
